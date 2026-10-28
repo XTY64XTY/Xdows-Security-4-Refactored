@@ -67,18 +67,29 @@
 
 <script>
 const tab = document.querySelector('#customers');
+// 客户端进度窗口（原「窗口2」）由父页面负责，浏览器环境下父页面无对应函数
+function BeginScanProgress() {
+	if (parent && parent.BeginProgress) { parent.BeginProgress('正在扫描'); }
+}
+function EndScanProgress() {
+	if (parent && parent.EndProgress) { parent.EndProgress(); }
+}
 function ScanFiles() {
+	BeginScanProgress();
 	const Http = new XMLHttpRequest();
     Http.open("GET", '/Function/ScanFiles',false);
 	Http.send();
+	EndScanProgress();
 	var div = Http.responseText;
     tab.insertAdjacentHTML('beforeend', div);
     TableClick(); // 只在插入新行时调用
 }
 function ScanDir() {
+	BeginScanProgress();
 	const Http = new XMLHttpRequest();
     Http.open("GET", '/Function/ScanDir',false);
 	Http.send();
+	EndScanProgress();
 	var div = Http.responseText;
     tab.insertAdjacentHTML('beforeend', div);
     TableClick(); // 只在插入新行时调用

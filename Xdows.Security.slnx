@@ -1,16 +1,33 @@
 <Solution>
   <Configurations>
-    <BuildType Name="Debug" />
-    <BuildType Name="Release" />
     <Platform Name="x64" />
   </Configurations>
   <Folder Name="/src/">
-    <Project Path="src/Xdows.Security.Client/Xdows.Security.Client.csproj" />
-    <Project Path="src/Xdows.Security.Core/Xdows.Security.Core.csproj" />
-    <Project Path="src/Xdows.Security.Host/Xdows.Security.Host.csproj" />
-    <Project Path="src/Xdows.Security.Plugin.Abstractions/Xdows.Security.Plugin.Abstractions.csproj" />
-    <Project Path="src/Xdows.Security.Plugins.Files/Xdows.Security.Plugins.Files.csproj" />
-    <Project Path="src/Xdows.Security.Plugins.Process/Xdows.Security.Plugins.Process.csproj" />
-    <Project Path="src/Xdows.Security.Server/Xdows.Security.Server.csproj" />
+    <Project Path="src/Xdows.Security.Core/Xdows.Security.Core.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Xdows.Security.Plugin.Abstractions/Xdows.Security.Plugin.Abstractions.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Xdows.Security.Server/Xdows.Security.Server.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Xdows.Security.Host/Xdows.Security.Host.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Xdows.Security.Client/Xdows.Security.Client.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Xdows.Security.Plugins.Files/Xdows.Security.Plugins.Files.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+    <Project Path="src/Xdows.Security.Plugins.Process/Xdows.Security.Plugins.Process.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Xdows.Security.Core.Tests/Xdows.Security.Core.Tests.csproj">
+      <Platform Solution="*|x64" Project="x64" />
+    </Project>
   </Folder>
 </Solution>

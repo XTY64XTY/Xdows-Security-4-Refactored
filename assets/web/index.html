@@ -393,10 +393,19 @@ function GoToAPPHTML(a, b) {
 	appDiv.classList.remove("app-loaded");
 	APPHTML.src = a;
 }
+// 客户端进度窗口（原「窗口2 / 窗口3」）；浏览器环境无 Client 对象，自动跳过
+function BeginProgress(text){
+	if (typeof Client !== 'undefined' && Client.showScanProgress) { Client.showScanProgress(text || '正在扫描'); }
+}
+function EndProgress(){
+	if (typeof Client !== 'undefined' && Client.endProgress) { Client.endProgress(); }
+}
 function UseFunction(a){
+	if (a === 'AddPlugins') { BeginProgress('正在解压插件包'); }
 	const Http = new XMLHttpRequest();
 	Http.open("GET", '/Function/'+a);
 	Http.send();
+	if (a === 'AddPlugins') { EndProgress(); }
 }
 function Update(){
 	message.info("暂未实现")

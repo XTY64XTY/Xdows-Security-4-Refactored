@@ -68,7 +68,7 @@ internal static class Program
                 case "--client":
                     clientPath = i + 1 < args.Length && !args[i + 1].StartsWith('-')
                         ? args[++i]
-                        : Path.Combine(AppContext.BaseDirectory, ClientFileName);
+                        : Path.Combine(AppContext.BaseDirectory, "Client", ClientFileName);
                     break;
 
                 default:

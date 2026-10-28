@@ -4,4 +4,8 @@
     <RootNamespace>Xdows.Security.Core</RootNamespace>
     <AssemblyName>Xdows.Security.Core</AssemblyName>
   </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Xdows.Security.Core.Tests" />
+  </ItemGroup>
+
 </Project>
