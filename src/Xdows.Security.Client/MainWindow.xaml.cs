@@ -69,6 +69,9 @@ public sealed partial class MainWindow : Window
         core.Settings.IsZoomControlEnabled = false;
         core.Settings.AreDefaultScriptDialogsEnabled = false;
 
+        // 与原客户端一致：禁止把文件拖入页面。
+        core.Controller.AllowExternalDrop = false;
+
         await core.AddScriptToExecuteOnDocumentCreatedAsync(ClientShim.Script);
         core.WebMessageReceived += OnWebMessageReceived;
 
