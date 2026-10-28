@@ -8,3 +8,6 @@
 *.binlog
 TestResults/
 publish/
+
+# 本地工作记录
+.workbuddy/
