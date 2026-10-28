@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <RootNamespace>Xdows.Security.Server</RootNamespace>
+    <AssemblyName>Xdows.Security.Server</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xdows.Security.Core\Xdows.Security.Core.csproj" />
+    <ProjectReference Include="..\Xdows.Security.Plugin.Abstractions\Xdows.Security.Plugin.Abstractions.csproj" />
+  </ItemGroup>
+</Project>
