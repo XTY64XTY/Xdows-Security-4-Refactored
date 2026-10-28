@@ -1,0 +1,78 @@
+@import "color.css";
+
+.switch-box {
+    width: 40px;
+}
+.switch-box .switch {
+    display: none;
+}
+.switch-box label {
+    position: relative;
+    display: block;
+    margin: 1px;
+    height: 20px;
+    cursor: pointer;
+}
+.switch-box label::before {
+    /* 前滚动圆球 */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    margin-top: -6px;
+    margin-left: -8px;
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    background-color: var(--Theme-Switch-color);
+	opacity: 1!important;
+    transform: translateX(-9px);
+    transition: all 0.25s ease;
+}
+
+.switch-box:hover label::before {
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+/*
+开启透明度渐变可能会导致切换时颜色问题
+.switch-box:hover .switch:checked~label::after {
+	background-color:rgba(from var(--Theme-color) r g b / 0.95);
+	border:1px solid rgba(from var(--Theme-color) r g b / 0.95);
+}
+.switch-box:active .switch:checked~label::after {
+	background-color:rgba(from var(--Theme-color) r g b / 0.9);
+	border:1px solid rgba(from var(--Theme-color) r g b / 0.9);
+}
+*/
+.switch-box:active label::before,.switch-box:active .switch:checked~label::before {
+	width: 18px;
+}
+.switch-box:active .switch:checked~label::before {
+	margin-left: -14px;
+}
+.switch-box .switch:checked~label::before {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+    background-color: var(--Background-color);
+}
+.switch-box label::after {
+    /* 滚动前背景色 */
+    box-sizing: border-box;
+    content: "";
+    display: block;
+    border-radius: 10px;
+    height: 20px;
+    background-color: var(--Theme-Background-color);
+    transition: all 0.25s ease;
+    border:1px solid var(--Text-color);
+    border-radius:12px
+}
+.switch-box .switch:checked~label::after {
+    border:1px solid var(--Theme-color);
+    background-color: var(--Theme-color);
+    transition: all 0.25s ease;
+}

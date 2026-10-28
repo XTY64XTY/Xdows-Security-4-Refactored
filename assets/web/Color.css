@@ -1,0 +1,58 @@
+/* 这是 Xdows UI 的相关配置文件 */
+
+/* 浅色主题颜色配置 */
+:root {
+  --Theme-color: #0067C0; /* 主题颜色 */
+  --Background-color: #FFFFFF; /* 背景颜色 */
+  --Text-color: #000000; /* 文本颜色 */
+  --Theme-Border-color: #E5E5E5; /* 组件边框色 */
+  --Theme-Background-color: #FBFBFC; /* 组件背景色 */
+  --Theme-Background-color2:#FFFFFF; /* 组件背景色 - 2 */
+  --Theme-Background-color3:#F3F3F3; /* 组件背景色 - 3 */
+  --Theme-Switch-color: #575757; /* 滑块按钮前景色 */
+  --Theme-Background-color-disabled: #F0F0F0; /* 禁用时组件背景色*/
+
+  /* 以下内容 none 表示隐藏 ‘’ 表示显示 */
+  --Display-Dark: none; /* 在深色模式显示 */
+  --Display-Light: ''; /* 在浅色模式显示 */
+
+  --Message-Shadow: 0px 2px 4px rgba(0, 0, 0, 0.08); /* 通知阴影配置 */
+  --Menu-Shadow: 0px 8px 16px rgba(0, 0, 0, 0.14); /* 菜单阴影配置 */
+
+  --BorderRadius:4px; /* 圆角大小 */
+  --SmallBorderRadius:4px; /* 小型圆角大小 */
+  color-scheme: light;
+}
+/* 深色主题颜色配置 */
+/* 注释同浅色的配置 */
+html[data-theme='dark'] {
+  --Theme-color: #4CC2FF;
+  --Background-color: #0E151A;
+  --Text-color: #FFFFFF;
+  --Theme-Border-color: #3B3B3B;
+  --Theme-Background-color: #313131;  
+  --Theme-Background-color2:#2B2B2B;
+  --Theme-Background-color3:#202020;
+  --Theme-Switch-color: #CCCCCC;
+  --Theme-Background-color-disabled: #272727;
+  --Display-Dark: '';
+  --Display-Light: none;
+  color-scheme: dark;
+}
+
+/* 如果你不是开发者，请不要修改或删除以下内容 */
+h1,h2,h3,h4,h5,h6,p{
+	color: var(--Text-color); /* 同步文本颜色 */
+}
+body {
+  transition: background-color 0.2s linear;  /* 背景颜色动画速率 */
+}
+XU-Icon{
+  font-family: 'Segoe Fluent Icons';
+  display: inline-block;
+}
+@font-face {
+  /* 如果删除或更改可能会导致在其它非 Windows 设备或老版本的 Windows 相关图标的显示错误 */
+  font-family: 'Segoe Fluent Icons';  /* 图标字体名称 */
+  src: url('/SegoeIcons.ttf');  /* 导入图标字体路径 */
+}

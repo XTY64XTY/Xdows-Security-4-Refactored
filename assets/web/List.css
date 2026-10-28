@@ -1,0 +1,46 @@
+@import "color.css";
+
+#customers {
+    font-family: "Microsoft YaHei";
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--BorderRadius);
+    border: solid 4px var(--Theme-Border-color);
+}
+#customers td, #customers th {
+    font-size: 1em;
+    padding: 3px 7px 2px 7px;
+}
+#customers th, #customers tr {
+    font-size: 15px;
+    text-align: left;
+    font-weight: normal;
+    padding-top: 2px;
+    padding-bottom: 0px;
+    background-color: var(--Theme-Background-color);
+	color:var(--Text-color);
+    height: 42px;
+}
+#customers th {
+    border: 1px solid var(--Theme-Border-color);
+    border-top: 0px;
+    border-left: 0px;
+}
+#customers tr:hover, #customers th:hover {
+	opacity: 0.8;
+}
+#customers tr:active, #customers th:active {
+	opacity: 0.7;
+}
+.ListBar {
+    background-color: var(--Theme-color)!important;
+    height: 0px;
+    transition-duration: 0.2s;
+    width: 4px;
+    position: absolute; /* 改为absolute以便移动 */
+    top: 0px;
+    display: none; /* 默认隐藏 */
+    border-radius: 2px;
+	opacity: 1!important;
+}

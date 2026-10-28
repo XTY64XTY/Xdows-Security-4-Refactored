@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html data-theme='light'>
+
+<style>
+
+    body {
+      font-family: 'Microsoft YaHei',sans-serif;
+      user-select:none;
+    }
+	img {
+		width: 300px;
+		float:right;
+		margin-top: -160px;
+	}
+    .con {
+      float: right;
+      display: inline-block;
+    }
+    h4 {
+        font-size:16px!important;
+    }
+    XU-Button {
+        padding: 12px 20px!important;
+        font-size:13px!important;
+     }
+XU-Card {
+  width: 31.5%!important;
+} 
+  table tbody {
+overflow-y: scroll;
+  }
+             table thead {
+                 width: calc( 100% - 1em)
+             }
+  </style>
+<head>
+  <title>Xdows Tools</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./../Button.css">
+  <link rel="stylesheet" type="text/css" href="./../Tab.css">
+  <link rel="stylesheet" type="text/css" href="./../Card.css">
+</head>
+<body>
+<h3>Xdows Tools</h3>
+<div class="con">
+  <XU-Button onclick=AddPlugins() id="Add">导入插件</XU-Button>
+</div>
+<br><br><br><br>
+<div class="tabs">
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="TabHome" checked />
+    <label class="tab-item" for="TabHome">功能主页</label>
+    <div class="tab-content">
+	<h4>功能主页</h4>
+		<XU-Card-Box>
+PluginsInfo
+		<XU-Card onclick=document.getElementById("Add").click()>
+			<div class="XU-Card-Content">
+				<h4>导入插件</h4>
+				<p>导入指定 Xdows Tools 插件</p>
+			</div>
+		</XU-Card>
+	</XU-Card-Box>
+    </div>
+  </div>
+
+PluginsData
+
+</div>
+</body>
+<script>
+    const tab = document.querySelector('#customers');
+function CardTab(a){
+	document.getElementById(a).click();
+}
+function AddPlugins() {
+	parent.UseFunction("AddPlugins");
+}
+</script>
+</html>

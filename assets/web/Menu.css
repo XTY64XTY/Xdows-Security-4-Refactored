@@ -1,0 +1,43 @@
+@import"color.css";  
+
+.menu {
+    position: relative;
+    display: inline-block;
+}
+
+.menu-content {
+    display: none;
+    position: absolute;
+    /* 动态添加透明度（0.8为透明度值，可调整） */
+    background-color: rgb(from var(--Theme-Background-color) r g b / 0.5);
+    backdrop-filter: blur(4px);
+    min-width: 94px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    border-radius: var(--BorderRadius);
+    border: 1px solid var(--Theme-Border-color);
+    margin-top: 4px;
+}
+
+/* 其余样式保持不变 */
+.menu-content a {
+    color: var(--Text-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    cursor: default;
+    font-size: 13px;
+    text-align: center;
+    margin: 4px;
+}
+
+.menu-content a:hover {
+    opacity: 0.8;
+    border-radius: var(--SmallBorderRadius);
+}
+.menu-content a:active {
+    opacity: 0.7;
+}
+
+.menu:hover .menu-content {
+    display: block;
+}

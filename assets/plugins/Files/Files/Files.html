@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html data-theme='light'>
+
+<style>
+
+    body {
+		font-family: 'Microsoft YaHei',sans-serif;
+		user-select:none;
+    }
+	img {
+		width: 300px;
+		float:right;
+		margin-top: -160px;
+	}
+    h5 {
+      font-size:15px;
+		margin-top: 8px;
+		float: left;
+		display: inline-block
+	}
+
+	.con {
+		float: right;
+		display: inline-block
+	}
+	XU-Button,XU-Button-DEF {
+		padding: 12px 20px!important;
+		font-size:13px!important;
+	}
+	h4 {
+		margin-left: 8px;
+		font-weight:normal;
+		margin-top: 8px;
+		font-size:15px;
+		float: left;
+		display: inline-block
+	}
+  </style>
+<head>
+  <title>Xdows Tools</title>
+  <link rel="stylesheet" type="text/css" href="/Button.css">
+  <link rel="stylesheet" type="text/css" href="/List.css">
+  <script src="/List.js"></script>
+</head>
+<body>
+    <h4>文件粉碎</h4>
+<div class="con">
+		<XU-Button onclick=AddFile()>添加文件</XU-Button>
+		<XU-Button onclick=DelFiles()>删除文件</XU-Button>
+</div>
+<div class="ListBar"></div>
+<table id="customers">
+    <tr>
+        <th>文件名称</th>
+        <th>所在路径</th>
+    </tr>
+</table>
+</body>
+<script>
+const tab = document.querySelector('#customers');
+function AddFile() {
+	const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/Files-AddFile',false);
+	Http.send();
+	var div = Http.responseText;
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用
+}
+function TableClick() {
+    const tab = document.querySelector('#customers');
+    const leftBar = document.querySelector('.ListBar');
+
+    // 事件委托
+    tab.addEventListener('click', function(event) {
+        const td = event.target.closest('td'); 
+        if (td) {
+            const rect = td.getBoundingClientRect();
+            if (leftBar.style.top == 0) {
+				leftBar.style.top = `${rect.top + window.scrollY + 18}px`; // 设置位置
+                leftBar.style.display = 'block'; // 显示 leftBar
+                requestAnimationFrame(() => {
+					leftBar.style.transition = '0.2s'; // 保持过渡效果
+					leftBar.style.top = `${rect.top + window.scrollY + 12}px`; // 设置位置
+					leftBar.style.height = '18px';
+                });
+            } else {
+                requestAnimationFrame(() => {
+                    leftBar.style.transition = '0.2s'; // 保持过渡效果
+                    leftBar.style.top = `${rect.top + window.scrollY + 12}px`; // 更新位置
+                });
+            }
+        }
+    });
+}
+function DelFiles() {
+	/* const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/Files-DelFiles',false);
+	Http.send();
+	var div = Http.responseText;
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用 */
+    console.log(GetListData('#customers',1));
+}
+// 初次绑定事件
+TableClick();
+// 适配软件主题
+function ChangeHtmlTheme() {
+    document.documentElement.dataset.theme = top.GetNowTheme();
+}
+ChangeHtmlTheme();
+let PluginsMedia = matchMedia("(prefers-color-scheme: light)");
+PluginsMedia.addListener(ChangeHtmlTheme);
+window.addEventListener("storage", function(e) {
+	if(e.key ==='ColorMode'){
+		ChangeHtmlTheme();
+	}
+});
+</script>
+</html>

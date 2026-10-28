@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html data-theme='light'>
+
+<style>
+    body {
+      font-family: 'Microsoft YaHei',sans-serif;
+      user-select:none;
+    }
+	img {
+		width: 300px;
+		float:right;
+		margin-top: -160px;
+	}
+    .con,.con3 {
+      float: right;
+
+    }
+    .con2 {
+      clear: both;
+      margin-top: -20px;
+    }
+    .con3 {
+      margin-top: -24px;
+      width:120px;
+      margin-right: 10px;
+    }
+    XU-Button {
+        padding: 8px 20px!important;
+        font-size:13px!important;
+    }
+  </style>
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./../Button.css">
+  <link rel="stylesheet" type="text/css" href="./../Tab.css">
+  <link rel="stylesheet" type="text/css" href="./../Switch.css">
+  <link rel="stylesheet" type="text/css" href="./../Color.css">
+  <link rel="stylesheet" type="text/css" href="./../Combo.css">
+  <link rel="stylesheet" type="text/css" href="./../Expander.css">
+  <link rel="stylesheet" type="text/css" href="./../Textbox.css">
+  <title>Settings</title>
+</head>
+<body>
+<h3>设置</h3>
+<br><br><br><br>
+<div class="tabs">
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab01" checked />
+    <label class="tab-item" for="tab01">个性化</label>
+    <div class="tab-content">
+    <h4>个性化</h4>
+    <div class="con2">
+        <h5>颜色模式</h5>
+		<div class="con3">
+			<div class="XU-Combo">
+				<XU-Button class="combo-button" aria-haspopup="listbox" aria-expanded="false" id="comboTrigger">
+					<span class="combo-text">跟随系统</span>
+					<svg class="combo-chevron" viewBox="0 0 16 16"><path fill="var(--Text-color)" d="M3.15 5.65a.5.5 0 0 1 .7 0L8 9.79l4.15-4.14a.5.5 0 1 1 .7.7l-4.5 4.5a.5.5 0 0 1-.7 0l-4.5-4.5a.5.5 0 0 1 0-.7z"/></svg>
+				</XU-Button>
+				<div class="combo-popup" role="listbox" aria-labelledby="comboTrigger" data-visible="false">
+					<div class="combo-item" role="option" aria-selected="true">跟随系统</div>
+					<div class="combo-item" role="option" aria-selected="false">浅色模式</div>
+					<div class="combo-item" role="option" aria-selected="false">深色模式</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <div class="con2">
+    <h5>主题样式定制</h5>
+  <div class="con">
+    <XU-Button onclick="parent.ColorDialog()">配置</XU-Button>
+  </div>
+</div>
+    </div>
+  </div>
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab02" />
+    <label class="tab-item" for="tab02">扫描引擎</label>
+    <div class="tab-content">
+        <h4>扫描引擎</h4>
+        <div class="con2">
+        <h5>Xdows Local 本地引擎</h5>
+		<div class="con">
+			<div class="switch-box">
+			<input id="Scan-Switch1" type="checkbox" class="switch" checked />
+			<label for="Scan-Switch1"></label>
+			</div>
+		</div>
+		</div>
+		<div class="con2">
+        <h5>Xdows Cloud 云端引擎</h5>
+		<div class="con">
+			<div class="switch-box">
+			<input id="Scan-Switch2" type="checkbox" class="switch" />
+			<label for="Scan-Switch2"></label>
+		</div>
+		</div>
+		</div>
+		<div class="con2">
+        <h5>自定义引擎</h5>
+		<div class="con">
+			<div class="switch-box">
+			<input id="Scan-Switch3" type="checkbox" class="switch" />
+			<label for="Scan-Switch3"></label>
+			</div>
+		</div>
+		</div>
+		<div class="con2">
+		<h5 style='margin-left:32px!important'>该功能基于 Xdows Tools 插件</h5>
+		<div class="con">
+			<XU-Button onclick="parent.GoToAPPHTML('./Xdows-Tools/index.html','bar3')">查看</XU-Button>
+		</div>
+		</div>
+	</div>
+  </div>
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab03"/>
+    <label class="tab-item" for="tab03">主动防御</label>
+    <div class="tab-content">
+        <h4>主动防御</h4>
+        <div class="con2">
+        <h5>进程防护</h5>
+		<div class="con">
+			<div class="switch-box">
+			<input id="switchButton1" type="checkbox" class="switch" />
+			<label for="switchButton1"></label>
+			</div>
+		</div>
+		</div>
+		<div class="con2">
+        <h5>引导防护</h5>
+		<div class="con">
+			<div class="switch-box">
+			<input id="switchButton2" type="checkbox" class="switch" />
+			<label for="switchButton2"></label>
+			</div>
+		</div>
+		</div>
+		<div class="con2">
+        <h5>行为防护</h5>
+		<div class="con">
+			<div class="switch-box">
+			<input id="switchButton3" type="checkbox" class="switch" />
+			<label for="switchButton3"></label>
+			</div>
+		</div>
+		</div>
+	</div>
+    </div>
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab04"/>
+    <label class="tab-item" for="tab04">隔离信任</label>
+    <div class="tab-content">暂未实现</div>
+  </div>
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab05"/>
+    <label class="tab-item" for="tab05">检查更新</label>
+    <div class="tab-content">
+        <h4>Xdows Security Update</h4>
+        <div class="con2">
+        <h5>你使用的是最新版本</h5>
+	<div class="con">
+		<XU-Button onclick=parent.Update()>检查</XU-Button>
+	</div>
+	</div>
+    </div>
+  </div>
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab06"/>
+    <label class="tab-item" for="tab06">常见问题</label>
+    <div class="tab-content">
+      <h4>常见问题</h4>
+      <Expander>
+        <input type="checkbox" id="item1" class="Expander-input">
+        <label for="item1" class="Expander-label">为什么有些功能无法使用或功能缺失</label>
+        <div class="Expander-content">
+          <p>目前该软件还在开发，有些功能还在制作。</p>
+        </div>
+      </Expander>
+      <Expander>
+        <input type="checkbox" id="item2" class="Expander-input">
+        <label for="item2" class="Expander-label">主题样式定制 该怎么修改</label>
+        <div class="Expander-content">
+          <p>根据注释修改相关值，实在看不懂的可以查一下 CSS 的格式</p>
+        </div>
+      </Expander>
+      
+      <Expander>
+        <input type="checkbox" id="item3" class="Expander-input">
+        <label for="item3" class="Expander-label">如何反馈 Bug / 请求功能</label>
+        <div class="Expander-content">
+          <p>在下面的按钮中点击 “反馈” 按钮跳转至 Github 反馈 (打不开可使用加速器等工具)</p>
+          <XU-Button onclick="window.open('https://github.com/XTY64XTY12345/Xdows-Security-4/issues') ">反馈</XU-Button>
+        </div>
+      </Expander>
+    </div>
+  </div>
+  <div class="tab-pane">
+    <input type="radio" name="tab" id="tab07"/>
+    <label class="tab-item" for="tab07">关于软件</label>
+    <div class="tab-content">
+      <h4>关于软件</h4>
+      <h5 style='margin-top:-16px!important'>开发者：Xdows Software
+      <br>
+      版本号：4.00 Beta<br></h5>
+      <br>
+      <br>
+      <Expander id="About_Client">
+        <input type="checkbox" id="item4" class="Expander-input">
+        <label for="item4" class="Expander-label">关于客户端</label>
+        <div class="Expander-content">
+          <p>
+            客户端使用 ACF浏览器框架 制作
+            <br>
+            <br>
+            源作者：Admenri
+            <br>
+            相关说明：在使用此项目时请注意相关协议
+          </p>
+        </div>
+      </Expander>
+    </div>
+  </div>
+</div>
+</body>
+<script src="./../Combo.js"></script>
+<script>
+      const comboItems = document.querySelectorAll('.combo-item');
+      const ColorModeMapping = {
+        '跟随系统': 'system',
+        '浅色模式': 'light',
+        '深色模式': 'dark'
+      };
+      let savedColorMode = localStorage.getItem('ColorMode');
+      const displayMode = Object.keys(ColorModeMapping).find(
+        key => ColorModeMapping[key] === savedColorMode
+      );
+      comboText.textContent = displayMode || '跟随系统';
+      comboItems.forEach(item => {
+        item.setAttribute('aria-selected', item.textContent === displayMode);
+      });
+
+      // 监听颜色模式选择
+      comboItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const selectedMode = item.textContent;
+          comboText.textContent = selectedMode;
+          comboItems.forEach(i => i.setAttribute('aria-selected', i === item));
+          localStorage.setItem('ColorMode', ColorModeMapping[selectedMode]);
+        });
+      });
+
+      // 客户端功能
+      if (top.getBrowserType() != 'Client'){
+        document.addEventListener('DOMContentLoaded', () => {
+        const AboutClient = document.getElementById('About_Client');
+        if (AboutClient) {
+          AboutClient.remove();
+        }
+        });
+      }
+
+</script>
+</html>

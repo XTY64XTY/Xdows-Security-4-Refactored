@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html data-theme='light'>
+
+<style>
+
+    body {
+		font-family: 'Microsoft YaHei',sans-serif;
+		user-select:none;
+    }
+	img {
+		width: 300px;
+		float:right;
+		margin-top: -160px;
+	}
+    h5 {
+      font-size:15px;
+		margin-top: 8px;
+		float: left;
+		display: inline-block
+	}
+
+	.con {
+		float: right;
+		display: inline-block
+	}
+	XU-Button,XU-Button-DEF {
+		padding: 12px 20px!important;
+		font-size:13px!important;
+	}
+	h4 {
+		margin-left: 8px;
+		font-weight:normal;
+		margin-top: 8px;
+		font-size:15px;
+		float: left;
+		display: inline-block
+	}
+  </style>
+<head>
+  <title>Xdows Tools</title>
+  <link rel="stylesheet" type="text/css" href="/Button.css">
+  <link rel="stylesheet" type="text/css" href="/List.css">
+  <link rel="stylesheet" type="text/css" href="/Dialog.css">
+</head>
+<body>
+    <div class="acrylic-overlay">
+        <div class="XU-Dialog" role="Dialog" aria-modal="true">
+            <div class="XU-Dialog-Header">
+                <h2 class="XU-Dialog-Title">你希望结束这个进程吗？</h2>
+                <button class="XU-Dialog-Close" aria-label="关闭">&#xE8BB;</button>
+            </div>
+            <div class="XU-Dialog-Content">
+                <p>当你选择强力模式时进程会被强行结束，任何相关数据都可能会丢失，甚至还可能会导致系统不稳定或崩溃，请谨慎使用。</p>
+            </div>
+            <div class="XU-Dialog-Actions">
+				<XU-Button-DEF>确定</XU-Button-DEF>
+				<XU-Button class='XU-Dialog-Close-Botton'>取消</XU-Button>
+            </div>
+        </div>
+    </div>
+<h4>进程管理</h4>
+<div class="con">
+	<XU-Button onclick=GetProcessList()>刷新列表</XU-Button>
+	<XU-Button onclick=KillProcess(PIDData)>终止进程</XU-Button>
+</div>
+<div class="ListBar"></div>
+<table id="customers">
+    <tr>
+        <th>进程名称</th>
+        <th>PID</th>
+        <th>所在路径</th>
+    </tr>
+</table>
+</body>
+<script>
+PIDData = ''
+NameData = ''
+const overlay = document.querySelector('.acrylic-overlay');
+const tab = document.querySelector('#customers');
+const leftBar = document.querySelector('.ListBar');
+const Http = new XMLHttpRequest();
+GetProcessList()
+
+function GetProcessList(){
+	Http.open("GET", '/Function/Process-GetProcessList',false);
+	Http.send();
+	var div = Http.responseText;
+    var rowCount = tab.rows.length;
+    for (var i = rowCount - 1; i > 0; i--) {
+		tab.deleteRow(i);
+    }
+
+	tab.insertAdjacentHTML('beforeend', div);
+	TableClick(); // 只在插入新行时调用
+}
+
+function KillProcess(){
+	overlay.classList.add('active');
+	// Http.open("GET", '/Function/Process-KillProcess/?PID='+PIDData+'&Name='+NameData,false);
+	// Http.send();
+	// GetProcessList();
+}
+document.addEventListener('DOMContentLoaded', () => {
+    // 元素选择
+    const closeBtns = document.querySelectorAll('.XU-Dialog-Close , .XU-Dialog-Close-Botton');
+    // 关闭对话框
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+    });
+
+    // 遮罩层点击关闭
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.remove('active');
+        }
+    });
+
+    // ESC 键关闭
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            overlay.classList.remove('active');
+        }
+    });
+});
+function TableClick() {
+    // 事件委托
+    tab.addEventListener('click', function(event) {
+        const td = event.target.closest('td'); 
+        if (td) {
+            const row = td.closest('tr'); // 获取点击的单元格所在的行
+            const rowIndex = Array.from(row.parentNode.children).indexOf(row); // 计算该行的索引
+            
+            Number = rowIndex + 1
+            PIDData = row.cells[1].innerText
+            NameData = row.cells[0].innerText
+            
+            const rect = td.getBoundingClientRect();
+            if (leftBar.style.top == 0) {
+                leftBar.style.top = `${rect.top + window.scrollY + 18}px`; // 设置位置
+                leftBar.style.display = 'block'; // 显示 leftBar
+                requestAnimationFrame(() => {
+                    leftBar.style.transition = '0.2s'; // 保持过渡效果
+                    leftBar.style.top = `${rect.top + window.scrollY + 12}px`; // 设置位置
+                    leftBar.style.height = '18px';
+                });
+            } else {
+                requestAnimationFrame(() => {
+                    leftBar.style.transition = '0.2s'; // 保持过渡效果
+                    leftBar.style.top = `${rect.top + window.scrollY + 12}px`; // 更新位置
+                });
+            }
+        }
+    });
+}
+// 初次绑定事件
+TableClick();
+// 适配软件主题
+function ChangeHtmlTheme() {
+    document.documentElement.dataset.theme = top.GetNowTheme();
+}
+ChangeHtmlTheme();
+let PluginsMedia = matchMedia("(prefers-color-scheme: light)");
+PluginsMedia.addListener(ChangeHtmlTheme);
+window.addEventListener("storage", function(e) {
+	if(e.key ==='ColorMode'){
+		ChangeHtmlTheme();
+	}
+});
+</script>
+</html>

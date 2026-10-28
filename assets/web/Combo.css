@@ -1,0 +1,98 @@
+@import"color.css";
+
+.XU-Combo {
+    font-family: 'Segoe UI Variable', system-ui;
+    width: 120px;
+    position: relative;
+    margin: 16px;
+}
+
+/* 触发按钮 */
+.combo-button {
+    width: 60%;
+    text-align: left;
+}
+
+/* 悬停状态 */
+.combo-button:hover {
+	opacity: 0.8;
+}
+.combo-button:active{
+	opacity: 0.7;
+	box-shadow:0 0px 0px 0 var(--Theme-Border-color);
+}
+/* 下拉箭头 */
+.combo-chevron {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%); 
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s;
+}
+.combo-button[aria-expanded="true"] .combo-chevron {
+    transform: translateY(-50%) rotate(180deg);
+}
+/* 下拉面板 */
+.combo-popup {
+    position: absolute;
+    width: 100%;
+    margin-top: 8px;
+    border-radius: 6px;
+    background-color:var(--Theme-Background-color);
+    border: var(--Theme-Border-color);
+    box-shadow: var(--Menu-Shadow);
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: all 0.2s cubic-bezier(0.1, 0.9, 0.2, 1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.combo-popup[data-visible="true"] {
+    opacity: 1;
+    transform: scaleY(1);
+}
+
+.combo-item {
+    padding: 10px 12px;
+	margin: 4px 8px;
+    font-size: 14px;
+    color: var(--Text-color);
+    transition: background 0.15s ease-out;
+    position: relative;
+    border-radius:6px;
+}
+
+.combo-item[aria-selected="true"]::after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background: var(--Theme-color);
+    border-radius:6px;
+}
+.combo-item[aria-selected="true"] {
+    background: var(--Theme-Background-color3);
+}
+.combo-item:hover {
+    background: var(--Theme-Background-color3);
+}
+
+.combo-item:focus-visible {
+    outline-offset: -2px;
+}
+
+.combo-popup::-webkit-scrollbar {
+    width: 8px;
+}
+.combo-popup::-webkit-scrollbar-thumb {
+    background: var(--Theme-Background-color3);
+    border-radius: var(--SmallBorderRadius);
+}

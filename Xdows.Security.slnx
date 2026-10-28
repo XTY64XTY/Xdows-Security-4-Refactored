@@ -1,0 +1,16 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Folder Name="/src/">
+    <Project Path="src/Xdows.Security.Client/Xdows.Security.Client.csproj" />
+    <Project Path="src/Xdows.Security.Core/Xdows.Security.Core.csproj" />
+    <Project Path="src/Xdows.Security.Host/Xdows.Security.Host.csproj" />
+    <Project Path="src/Xdows.Security.Plugin.Abstractions/Xdows.Security.Plugin.Abstractions.csproj" />
+    <Project Path="src/Xdows.Security.Plugins.Files/Xdows.Security.Plugins.Files.csproj" />
+    <Project Path="src/Xdows.Security.Plugins.Process/Xdows.Security.Plugins.Process.csproj" />
+    <Project Path="src/Xdows.Security.Server/Xdows.Security.Server.csproj" />
+  </Folder>
+</Solution>

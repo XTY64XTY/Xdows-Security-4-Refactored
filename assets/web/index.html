@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+	font-family: 'Microsoft YaHei',sans-serif;
+	background-color: var(--Background-color);
+	user-select:none;
+	margin:0;
+	height: 100%;
+}
+.app {
+	width: calc(100vw - 63px);
+	height: calc(100vh - 80px);
+	margin-left: 63px;
+	position: relative;
+	transform: translateY(20px);
+	opacity: 0;
+	transition: all 0.5s cubic-bezier(0.33, 0.84, 0.36, 1.05);
+}
+
+.app-loaded {
+	transform: translateY(0);
+	opacity: 1 !important;
+}
+
+.XU-Dialog-Content h5 {
+	font-weight: normal;
+	font-size: 15px;
+	margin: 0;
+}
+.XU-Dialog-Content-Group{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 16px;
+}
+.XU-Dialog-Content-Group XU-Textbox{
+	width: 60px;
+}
+@media (orientation: portrait) {
+  .app {
+    height: calc(100vh - 96px);
+	margin-left: 0px;
+	width: 100%;
+  }
+  .icon-bar .Sidebar{
+	display: none;
+  }
+}
+@keyframes rotate360 {
+	from { transform: rotate(-24deg);}
+	to { transform: rotate(360deg);}
+}
+.bar4-rotate {
+	animation: rotate360 0.8s linear;
+}
+.icon-bar a span#bar4-text {
+	transform-origin: center;
+	display: inline-block;
+}
+@-moz-document url-prefix() {
+	.icon-bar a span#bar4-text {
+		transform-origin: center 40%;
+	}
+}
+.icon-bar a:active span#bar4-text {
+	transform: rotate(-24deg);
+	transition: transform 0.2s;
+}
+</style>
+<script src="./../Message.js"></script>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="./Bar.css">
+	<link rel="stylesheet" type="text/css" href="./Button.css">
+	<link rel="stylesheet" type="text/css" href="./Dialog.css">
+	<link rel="stylesheet" type="text/css" href="./Textbox.css">
+	<script>function ChangeHtml(){}</script>
+</head>
+<title>Xdows Security</title>
+<div id="App_Title">
+	<img src="./logo.ico" style="float: left;margin-left:4px" alt="" width="30" height="30">
+	<h2 class="Tittle">&nbspXdows Security</h2>
+</div>
+
+<div class="icon-bar"> 
+	<a class="activeDEF" id="bar1" title="主页" onclick="GoToAPPHTML('./Home/index.html','bar1')">
+		&#xE80F;
+	</a> 
+	<a id="bar2" title="杀毒" onclick="GoToAPPHTML('./Security/index.html','bar2')">
+		&#xEA18;
+	</a> 
+	<a id="bar3" style="margin-left: -1px;" title="Xdows Tools" onclick="GoToAPPHTML('./Xdows-Tools/index.html','bar3')">
+		&#xEA86;
+	</a> 
+	<a id="bar4" title="设置" onclick="GoToAPPHTML('./Settings/index.html','bar4')">
+		<span id="bar4-text">&#xE713;</span>
+	</a>
+	<a id="SideBar" class="Sidebar"></a>
+</div>
+
+<div class="acrylic-overlay">
+	<!--配色管理-->
+	<div class="XU-Dialog" role="Dialog" aria-modal="true">
+		<div class="XU-Dialog-Header">
+			<h2 class="XU-Dialog-Title">配色管理</h2>
+			<button class="XU-Dialog-Close" aria-label="关闭">&#xE8BB;</button>
+		</div>
+		<div class="XU-Dialog-Content">
+			<br>
+			<div class="XU-Dialog-Content-Group">
+				<h5>主题颜色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-color"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>背景颜色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Background-color"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>文本颜色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Text-color"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>组件边框色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-Border-color"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>组件背景色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-Background-color"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>组件背景色 - 2</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-Background-color2"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>组件背景色 - 3</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-Background-color3"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>滑块按钮前景色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-Switch-color"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+			<div class="XU-Dialog-Content-Group">
+				<h5>禁用时组件背景色</h5>
+				<XU-Textbox width="100px">
+					<input id="UseCssValue" type="text" value="--Theme-Background-color-disabled"></input>
+					<span></span>
+				</XU-Textbox>
+			</div>
+
+			<p style="margin-bottom: -32px;color:gray"><XU-Icon>&#xE7BA;</XU-Icon> 该功能暂未实现，请点击 高级 按钮以编辑</p>
+		</div>
+		<div class="XU-Dialog-Actions">
+			<XU-Button onclick="UseFunction('OpenColorCssFiles')">高级</XU-Button>
+			<XU-Button-DEF class='XU-Dialog-Close-Botton'>保存</XU-Button-DEF>
+		</div>
+	</div>
+</div>
+
+<body>	
+<div class="app" id="APPDiv"> 
+	<iframe id="APPHTML" height="100%" width="100%"	onload="ChangeHtml()" scrolling="auto" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+</div>
+</body>
+<script>
+console.clear();
+const message = parent.useMessage();
+const APPHTML = document.getElementById("APPHTML");
+const loadingAnimation = document.createElement("div");
+const loadingImage = document.createElement("img");
+const overlay = document.querySelector('.acrylic-overlay');// 遮罩
+
+function ColorManagementRefresh(){
+	const cssValueInputs = document.querySelectorAll('input[id="UseCssValue"]');
+	cssValueInputs.forEach(input => {
+		const cssVariable = input.defaultValue;
+		const cssValue = getComputedStyle(document.documentElement).getPropertyValue(cssVariable);
+		console.log(cssValue)
+		input.value = cssValue;
+	});
+}
+// 对话框
+document.addEventListener('DOMContentLoaded', () => {
+    // 元素选择
+    const closeBtns = document.querySelectorAll('.XU-Dialog-Close , .XU-Dialog-Close-Botton');
+    // 关闭对话框
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            overlay.classList.remove('active');
+        });
+    });
+
+    // 遮罩层点击关闭
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.classList.remove('active');
+        }
+    });
+
+    // ESC 键关闭
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            overlay.classList.remove('active');
+        }
+    });
+});
+
+function ColorDialog() {
+	ColorManagementRefresh();
+	overlay.classList.add('active');
+}
+
+// 主题功能
+function updateTheme(isLight) {
+	const theme = isLight ? 'light' : 'dark';
+	document.documentElement.dataset.theme = theme;
+	APPHTML.contentWindow.document.documentElement.dataset.theme = theme;
+	if (loadingImage) {
+		loadingImage.src = isLight ? "./loading-light.gif" : "./loading-dark.gif";
+	}
+	// 客户端功能
+	if (getBrowserType() == 'Client'){
+		Client.postMessage(
+			"ChangeTheme",
+			getComputedStyle(document.documentElement).getPropertyValue("--Background-color"),
+			getComputedStyle(document.documentElement).getPropertyValue("--Text-color"),
+			getComputedStyle(document.documentElement).getPropertyValue("--Theme-color"),
+			getComputedStyle(document.documentElement).getPropertyValue("--Theme-Background-color"),
+			theme
+		);
+  	};
+}
+function FollowSystem(){
+	if (themeMedia.matches){
+		updateTheme(true);
+	}else{
+		updateTheme(false);
+	}
+}
+
+function ChangeTheme(){
+	savedColorMode = localStorage.getItem('ColorMode');
+	if (!savedColorMode) {
+	    savedColorMode = 'system'; // 默认值
+	    localStorage.setItem('ColorMode', savedColorMode);
+	}
+	themeMedia = matchMedia("(prefers-color-scheme: light)");
+	if (savedColorMode === 'system') {
+		// 监听事件
+		themeMedia.addEventListener('change', FollowSystem);
+		FollowSystem();
+	} else {
+		updateTheme(savedColorMode === 'light');
+		if (themeMedia) {
+			themeMedia.removeEventListener('change', FollowSystem);
+		}
+	}
+}
+ChangeTheme();
+function GetNowTheme(){
+	let NowColorMode = localStorage.getItem('ColorMode');
+	if (NowColorMode === 'system') {
+		return matchMedia("(prefers-color-scheme: light)").matches ? 'light' : 'dark'
+	} else {
+		return NowColorMode
+	}
+}
+
+function ChangeHtml() {
+	if (document.body.contains(loadingAnimation)) {
+		document.body.removeChild(loadingAnimation);
+	}
+	if (document.body.contains(loadingImage)) {
+		document.body.removeChild(loadingImage);
+	}
+	if (APPHTML.src.includes("index.html")) {
+		document.getElementById('APPDiv').classList.add('app-loaded');
+	}
+	updateTheme(GetNowTheme() === 'light');
+}
+function getBrowserType() {
+	var ua = navigator.userAgent
+	var isOpera = ua.indexOf('Opera') > -1
+	if (isOpera) { return 'Opera' }
+	var isIE = (ua.indexOf('compatible') > -1) && (ua.indexOf('MSIE') > -1) && !isOpera
+	var isIE11 = (ua.indexOf('Trident') > -1) && (ua.indexOf("rv:11.0") > -1)
+	// 返回结果
+	if (isIE11) { return 'IE11'
+	} else if (isIE) {
+		// 检测是否匹配
+		var re = new RegExp('MSIE (\\d+\\.\\d+);')
+		re.test(ua)
+		// 获取版本
+		var ver = parseFloat(RegExp["$1"])
+		// 返回结果
+		if (ver == 7) { return 'IE7'
+		} else if (ver == 8) { return 'IE8'
+		} else if (ver == 9) { return 'IE9'
+		} else if (ver == 10) { return 'IE10'
+		} else { return "IE" }
+	}
+	var isClient = ua.indexOf("Client") > -1
+	if (isClient) { return 'Client' }
+	var isEdge = ua.indexOf("Edge") > -1
+	if (isEdge) { return 'Edge' }
+	var isFirefox = ua.indexOf("Firefox") > -1
+	if (isFirefox) { return 'Firefox' }
+	var isSafari = (ua.indexOf("Safari") > -1) && (ua.indexOf("Chrome") == -1)
+	if (isSafari) { return "Safari" }
+	var isChrome = (ua.indexOf("Chrome") > -1) && (ua.indexOf("Safari") > -1) && (ua.indexOf("Edge") == -1)
+	if (isChrome) { return 'Chrome' }
+	return ''
+}
+function GoToAPPHTML(a, b) {
+	const x = document.getElementsByClassName("activeDEF")[0];
+	const appDiv = document.getElementById("APPDiv");
+	if (b == "bar3") {
+		const isLightTheme = GetNowTheme() === "light";
+		loadingAnimation.id = "loadingAnimation";
+		loadingAnimation.style.position = "absolute";
+		loadingAnimation.style.top = "50%";
+		loadingAnimation.style.left = "50%";
+		loadingAnimation.style.transform = "translate(-50%, -50%)";
+		loadingAnimation.style.zIndex = "1000";
+		loadingAnimation.style.fontSize = "20px";
+		loadingAnimation.style.color = "var(--Text-color)";
+		loadingAnimation.style.display = "flex";
+		loadingAnimation.style.flexDirection = "column";
+		loadingAnimation.style.alignItems = "center";
+		loadingImage.src = isLightTheme ? "./Loading/light.gif" : "./Loading/dark.gif";
+		loadingImage.alt = "加载动画";
+		loadingImage.style.width = "40px";
+		loadingImage.style.height = "40px";
+		loadingImage.style.marginBottom = "10px";
+		loadingImage.style.position = "absolute";
+		loadingImage.style.top = "50%";
+		loadingImage.style.left = "50%";
+		loadingImage.style.transform = "translate(-50%, -155%)";
+		loadingImage.style.zIndex = "1000";
+		loadingImage.style.display = "flex";
+		loadingImage.style.flexDirection = "column";
+		loadingImage.style.alignItems = "center";
+
+		loadingAnimation.appendChild(loadingImage);
+		loadingAnimation.innerText = "正在加载";
+		document.body.appendChild(loadingAnimation);
+		document.body.appendChild(loadingImage);
+	}
+	if (b == "bar4") {
+		const bar4 = document.getElementById(b + '-text');
+		bar4.classList.add("bar4-rotate");
+		bar4.addEventListener("animationend", function handler() {
+			bar4.classList.remove("bar4-rotate");
+			bar4.removeEventListener("animationend", handler);
+		});
+	}
+	const offsets = {
+		Firefox: { bar1: "-182px", bar2: "-135px", bar3: "-86px", bar4: "-38px" },
+		default: { bar1: "-166px", bar2: "-122px", bar3: "-77px", bar4: "-34px" }
+	};
+	const browserType = getBrowserType();
+	const offset = (offsets[browserType] || offsets.default)[b] || "0px";
+
+	x.className = ""; // 更新之前清除当前激活状态
+	document.getElementById(b).classList.add("activeDEF");
+	document.getElementById("SideBar").style.top = offset;
+	appDiv.classList.remove("app-loaded");
+	APPHTML.src = a;
+}
+function UseFunction(a){
+	const Http = new XMLHttpRequest();
+	Http.open("GET", '/Function/'+a);
+	Http.send();
+}
+function Update(){
+	message.info("暂未实现")
+}
+function MessageInfo(a){
+	message.info(a)
+}
+function MessageSuccess(a){
+	message.success(a)
+}
+// 监听本地存储 ColorMode
+window.addEventListener("storage", function(e) {
+	if(e.key ==='ColorMode'){
+		ChangeTheme();
+	}
+});
+
+document.getElementById("bar1").click();
+
+// 客户端功能
+if (getBrowserType() == 'Client'){
+    document.addEventListener('DOMContentLoaded', () => {
+    const App_Title = document.getElementById('App_Title');
+    if (App_Title) {
+		App_Title.remove();
+    }
+    });
+}
+</script>
+</html>
+

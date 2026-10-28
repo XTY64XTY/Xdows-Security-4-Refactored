@@ -1,0 +1,49 @@
+﻿@import"color.css";
+
+XU-Button,XU-Button-DEF{
+	background-color:var(--Theme-Background-color);
+	border-radius: var(--BorderRadius);
+	color:var(--Text-color);
+	text-align:center;
+	text-decoration:none;
+	font-family:'Microsoft YaHei',sans-serif;
+	display:inline-block;
+	outline:none;
+	font-size:15px;
+	box-shadow: 0 0 0 0 var(--Theme-Border-color);
+	transition-duration:0.1s;
+	cursor:auto;
+	border-top: 1px solid var(--Theme-Border-color);
+    border-left: 1px solid var(--Theme-Border-color);
+    border-right: 1px solid var(--Theme-Border-color);
+	border-bottom: 1.3px solid rgb(from var(--Theme-Border-color) calc(r * 0.9) calc(g * 0.9) calc(b * 0.9) / alpha);
+	padding:15px 40px;
+	opacity: 1;
+	position: relative;
+}
+XU-Button:hover,XU-Button-DEF:hover{
+	opacity: 0.9;
+}
+XU-Button:active,XU-Button-DEF:active{
+	opacity: 0.8;
+}
+XU-Button:active{
+	border-bottom: 1px solid var(--Theme-Border-color);
+}
+XU-Button[disabled],XU-Button:hover[disabled],XU-Button:active[disabled]{
+	background-color: var(--Theme-Background-color-disabled);
+	pointer-events:none;
+	opacity: 0.5;
+}
+XU-Button-DEF{
+	background-color:var(--Theme-color);
+	color:var(--Background-color);
+	box-shadow: 0 0 0 0 var(--Background-color);
+	border-top: 1px solid var(--Background-color);
+    border-left: 1px solid var(--Background-color);
+    border-right: 1px solid var(--Background-color);
+	border-bottom: 1.3px solid var(--Background-color);
+}
+XU-Button-DEF:active{
+	border-bottom: 1px solid var(--Background-color);
+}

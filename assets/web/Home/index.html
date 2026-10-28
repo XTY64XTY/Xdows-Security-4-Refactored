@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html data-theme='light'>
+
+<style>
+.con {
+	margin-left: 70px;
+	margin-bottom: 185px
+}
+body {
+	font-family: 'Microsoft YaHei',sans-serif;
+	user-select:none;
+}
+img {
+	width: 300px;
+	float:right;
+	margin-top: -160px;
+}
+h3 {
+	font-size:30px;
+	margin-left: 50px;
+	margin-top: 70px;
+}
+p,h3 {
+	font-weight:normal;
+}
+span {
+	font-size:20px;
+	margin-top: 10px;
+	display: block;
+}
+XU-Button-DEF {
+	padding: 15px 40px!important;
+}
+@media (orientation: portrait) {
+  .con,.TittleH3 {
+    text-align: center;
+	margin-left: 0;
+  }
+}
+@media (max-width: 552px) {
+  img {
+	display: none;
+  }
+}
+  </style>
+<head>
+	<link rel="stylesheet" type="text/css" href="./../Button.css">
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="./../Card.css">
+  <title>主页</title>
+</head>
+<body>
+<h3 class="TittleH3">您已受到我们的保护</h3>
+<img src="./PNG/Xlogo.png" alt="">
+<div class="con">
+  <XU-Button-DEF onclick="parent.GoToAPPHTML('./Security/index.html','bar2')">扫描病毒</XU-Button-DEF>
+</div>
+
+<XU-Card-Box>
+	<XU-Card onclick=Acceleration()>
+		<div class="XU-Card-Content">
+			<h4><b>一键加速</b></h4>
+			<p>加速系统，让系统更加流畅</p>
+		</div>
+	</XU-Card>
+	<XU-Card onclick=parent.UseFunction("Clean")>
+		<div class="XU-Card-Content">
+			<h4><b>垃圾清理</b></h4>
+			<p>清理系统垃圾，增加硬盘空间</p>
+		</div>
+	</XU-Card>
+	<XU-Card onclick=parent.GoToAPPHTML("./Security/index.html","bar2")>
+		<div class="XU-Card-Content">
+			<h4><b>查杀病毒</b></h4>
+			<p>使用先进的查杀引擎扫描病毒</p>
+		</div>
+	</XU-Card>
+	<XU-Card onclick=parent.GoToAPPHTML("./Xdows-Tools/index.html","bar3")>
+		<div class="XU-Card-Content">
+			<h4><b>Xdows Tools</b></h4>
+			<p>现已支持导入或开发扩展工具</p>
+		</div>
+	</XU-Card>
+	<XU-Card onclick=parent.GoToAPPHTML("./Settings/index.html","bar4")>
+		<div class="XU-Card-Content">
+			<h4><b>个性化</b></h4>
+			<p>修改 Xdows Security UI设置</p>
+		</div>
+	</XU-Card>
+</XU-Card-Box>
+</body>
+<script>
+function Acceleration() {
+    parent.MessageSuccess("加速成功");
+}
+</script>
+</html>

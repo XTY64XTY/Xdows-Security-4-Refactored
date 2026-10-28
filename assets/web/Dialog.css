@@ -1,0 +1,167 @@
+@import"color.css";
+
+.XU-Dialog-Actions XU-Button,.XU-Dialog-Actions XU-Button-DEF {
+	padding: 6px 84px!important;
+	font-size:13px!important;
+	border-radius: var(--SmallBorderRadius)!important;
+}
+.XU-Dialog-Container {
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 亚克力遮罩层保持原有样式 */
+.acrylic-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    /* backdrop-filter: blur(8px); */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden; /* 初始状态隐藏 */
+    transition: opacity 250ms cubic-bezier(0.1, 0.9, 0.2, 1), visibility 0s linear 250ms; /* 延迟 visibility 切换 */
+    pointer-events: none;
+    z-index: 100; /* 确保在最顶层 */
+}
+
+
+.acrylic-overlay.active {
+    opacity: 1;
+    visibility: visible; /* 激活时显示 */
+    pointer-events: all;
+    transition: opacity 250ms cubic-bezier(0.1, 0.9, 0.2, 1), visibility 0s linear 0s; /* 立即切换 visibility */
+}
+.acrylic-overlay {
+	animation: overlay-close 200ms ease-out forwards;
+}
+
+.acrylic-overlay.active {
+	animation: overlay-open 250ms ease-out forwards;
+}
+
+.acrylic-overlay:not(.active) .XU-Dialog {
+	animation: XU-Dialog-Close 300ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+	visibility: visible;
+}
+
+@keyframes overlay-open {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes overlay-close {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+/* 弹窗容器 */
+.XU-Dialog {
+    background: var(--Theme-Background-color2);
+    border-radius: var(--BorderRadius);
+    width: 448px;
+    opacity: 0;
+    box-shadow: var(--Theme-Border-color);
+    border: 1px solid var(--Theme-Border-color);
+    z-index: 100;
+	transform-origin: center center;
+	animation: none; /* 禁用初始动画 */
+	visibility: hidden; /* 初始状态隐藏 */
+}
+
+.acrylic-overlay.active .XU-Dialog {
+	animation: XU-Dialog-Open 300ms cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+	visibility: visible; /* 激活时显示 */
+}
+
+@keyframes XU-Dialog-Open {
+	0% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes XU-Dialog-Close {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+	100% {
+		transform: scale(1.2);
+		opacity: 0;
+	}
+}
+
+
+/* 弹窗头部 */
+.XU-Dialog-Header {
+	margin-top: 8px;
+    padding: 18px 24px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.XU-Dialog-Title {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* WinUI 关闭按钮 */
+.XU-Dialog-Close {
+    position: absolute;
+    background: var(--Theme-Background-color2);
+    top: 14px;
+    right: 14px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: var(--SmallBorderRadius);
+    cursor: pointer;
+    font-family: 'Segoe Fluent Icons';
+    font-size: 12px;
+    color: var(--Text-color);
+    transition: 
+background-color 150ms cubic-bezier(0.1, 0.9, 0.2, 1),
+color 150ms cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.XU-Dialog-Close:hover {
+    opacity: 0.9;
+}
+
+.XU-Dialog-Close:active {
+	opacity: 0.8;
+}
+
+/* 内容区域 */
+.XU-Dialog-Content {
+	margin-top: -56px;
+    padding: 40px 24px;
+    line-height: 1.5;
+    font-size: 14px;
+    color: #404040;
+}
+
+/* 操作按钮组 */
+.XU-Dialog-Actions {
+	border-radius: 0px 0px 8px 8px;
+    padding: 16px 24px;
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    background: var(--Theme-Background-color3);
+}

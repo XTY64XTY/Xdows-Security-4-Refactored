@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html data-theme='light'>
+
+<style>
+    body {
+      font-family: 'Microsoft YaHei',sans-serif;
+      user-select:none;
+    }
+	img {
+		width: 300px;
+		float:right;
+		margin-top: -160px;
+	}
+    h3 {
+      font-size:20px;
+      float: left;
+      display: inline-block
+      
+    }
+    p ,h3 {
+      font-weight:normal;
+      color: #000000;
+    }
+    .con {
+      float: right;
+      display: inline-block
+    }
+    XU-Button {
+        padding: 12px 20px!important;
+        font-size:13px!important;
+     }
+	.ListBar {
+		left: 8px;
+	}
+  </style>
+<head>
+  <title>杀毒</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./../Button.css">
+  <link rel="stylesheet" type="text/css" href="./../Menu.css">
+  <link rel="stylesheet" type="text/css" href="./../List.css">
+  <script src="./../List.js"></script>
+</head>
+<body>
+<h3>&nbsp杀毒</h3>
+<div class="con">
+  <XU-Button onclick=DelFiles()>删除文件</XU-Button>
+  
+<div class="menu">
+  <XU-Button>扫描病毒</XU-Button>
+  <div class="menu-content">
+    <a onclick=ScanFast()>快速扫描</a>
+    <a onclick=ScanAll()>全盘扫描</a>
+    <a onclick=ScanDir()>目录扫描</a>
+    <a onclick=ScanFiles()>文件扫描</a>
+  </div>
+</div>
+</div>
+<div class="ListBar"></div>
+<table id="customers">
+    <tr>
+        <th>文件名称</th>
+        <th>病毒名称</th>
+        <th>文件路径</th>
+    </tr>
+</table>
+
+<script>
+const tab = document.querySelector('#customers');
+function ScanFiles() {
+	const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/ScanFiles',false);
+	Http.send();
+	var div = Http.responseText;
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用
+}
+function ScanDir() {
+	const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/ScanDir',false);
+	Http.send();
+	var div = Http.responseText;
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用
+}
+function ScanFast() {
+	/*const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/ScanFast',false);
+	Http.send();
+	var div = Http.responseText;
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用*/
+    parent.MessageInfo('暂未实现');
+}
+function ScanAll() {
+	/*const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/ScanAll',false);
+	Http.send();
+	var div = Http.responseText;
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用*/
+    parent.MessageInfo('暂未实现');   
+}
+function TableClick() {
+    const tab = document.querySelector('#customers');
+    const leftBar = document.querySelector('.ListBar');
+
+    // 事件委托
+    tab.addEventListener('click', function(event) {
+        const td = event.target.closest('td'); 
+        if (td) {
+            const rect = td.getBoundingClientRect();
+            if (leftBar.style.top == 0) {
+				leftBar.style.top = `${rect.top + window.scrollY + 18}px`; // 设置位置
+                leftBar.style.display = 'block'; // 显示 leftBar
+                requestAnimationFrame(() => {
+					leftBar.style.transition = '0.2s'; // 保持过渡效果
+					leftBar.style.top = `${rect.top + window.scrollY + 12}px`; // 设置位置
+					leftBar.style.height = '18px';
+                });
+            } else {
+                requestAnimationFrame(() => {
+                    leftBar.style.transition = '0.2s'; // 保持过渡效果
+                    leftBar.style.top = `${rect.top + window.scrollY + 12}px`; // 更新位置
+                });
+            }
+        }
+    });
+}
+
+function DelFiles() {
+    const Data = GetListData('#customers',2);   
+    const Vis = GetListData('#customers',1);
+	const Http = new XMLHttpRequest();
+    Http.open("GET", '/Function/DelFiles/?Files='+Data+'&Vis='+Vis,false);
+	Http.send();
+	var div = Http.responseText;
+	var rowCount = tab.rows.length;
+    for (var i = rowCount - 1; i > 0; i--) {
+		tab.deleteRow(i);
+    }
+    tab.insertAdjacentHTML('beforeend', div);
+    TableClick(); // 只在插入新行时调用
+}
+
+// 初次绑定事件
+TableClick();
+</script>
+</body>
+</html>
