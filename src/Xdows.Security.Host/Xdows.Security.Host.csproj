@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <RootNamespace>Xdows.Security.Host</RootNamespace>
+    <AssemblyName>Xdows.Security.Host</AssemblyName>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Xdows.Security.Core\Xdows.Security.Core.csproj" />
+    <ProjectReference Include="..\Xdows.Security.Server\Xdows.Security.Server.csproj" />
+    <ProjectReference Include="..\Xdows.Security.Plugin.Abstractions\Xdows.Security.Plugin.Abstractions.csproj" />
+  </ItemGroup>
+
+  <!-- 网页资源、批处理脚本：输出到与原项目一致的 Bin\ 结构 -->
+  <ItemGroup>
+    <Content Include="..\..\assets\web\**\*" LinkBase="Bin\Html" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\assets\bin-function\*" LinkBase="Bin\Function" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="..\..\assets\plugins\**\*" LinkBase="Plugins" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <!-- 插件以独立程序集编译，再按 Plugins\<名称>\Files\Main.dll 的契约复制 -->
+  <Target Name="CopyPlugins" AfterTargets="Build">
+    <MSBuild Projects="..\Xdows.Security.Plugins.Files\Xdows.Security.Plugins.Files.csproj" Targets="Build" Properties="Configuration=$(Configuration)">
+      <Output TaskParameter="TargetOutputs" ItemName="FilesPluginOutput" />
+    </MSBuild>
+    <MSBuild Projects="..\Xdows.Security.Plugins.Process\Xdows.Security.Plugins.Process.csproj" Targets="Build" Properties="Configuration=$(Configuration)">
+      <Output TaskParameter="TargetOutputs" ItemName="ProcessPluginOutput" />
+    </MSBuild>
+    <Copy SourceFiles="@(FilesPluginOutput)" DestinationFolder="$(OutDir)Plugins\Files\Files" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ProcessPluginOutput)" DestinationFolder="$(OutDir)Plugins\Process\Files" SkipUnchangedFiles="true" />
+  </Target>
+</Project>
