@@ -5,6 +5,7 @@
     <RootNamespace>Xdows.Security.Host</RootNamespace>
     <AssemblyName>Xdows.Security.Host</AssemblyName>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\..\assets\logo.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
