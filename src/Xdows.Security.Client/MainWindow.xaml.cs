@@ -54,7 +54,21 @@ public sealed partial class MainWindow : Window
     {
         try
         {
-            await WebView.EnsureCoreWebView2Async();
+            // 用户数据放在 LocalAppData，避免在程序目录生成数百兆的 EBWebView 缓存
+            // （程序若装在 Program Files 下也会因为无写权限而启动失败）。
+            string userDataFolder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Xdows Software",
+                "Xdows Security",
+                "WebView2");
+            Directory.CreateDirectory(userDataFolder);
+
+            var environment = await Microsoft.Web.WebView2.Core.CoreWebView2Environment.CreateWithOptionsAsync(
+                browserExecutableFolder: null,
+                userDataFolder: userDataFolder,
+                options: null);
+
+            await WebView.EnsureCoreWebView2Async(environment);
         }
         catch (Exception ex)
         {

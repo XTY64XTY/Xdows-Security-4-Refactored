@@ -9,6 +9,11 @@
     <Platforms>x64</Platforms>
     <PlatformTarget>x64</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- 宿主不加载任何插件的元数据，可以裁剪；插件程序集是独立编译的，不受影响。
+         不能用 NativeAOT：插件靠 AssemblyLoadContext 动态加载，AOT 下不支持。 -->
+    <PublishTrimmed>true</PublishTrimmed>
+    <TrimMode>partial</TrimMode>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
   </PropertyGroup>
 
   <ItemGroup>

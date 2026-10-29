@@ -63,6 +63,15 @@ powershell -ExecutionPolicy Bypass -File Build/publish.ps1
 产物输出到 `publish\`：宿主与资源在根目录，WinUI3 客户端在 `publish\Client\`。
 直接运行 `publish\Xdows.Security.Host.exe serve --client` 即可同时启动服务与客户端。
 
+发布体积约 200 MB，做了两处收敛：
+
+- 宿主启用 IL 裁剪（`PublishTrimmed`，79 MB → 23 MB）；
+- 客户端按需引用 Windows App SDK 组件，不引用元包，从而去掉未使用的 AI/ML 部分（`onnxruntime` + `DirectML` 约 40 MB）。
+
+宿主**没有**启用 NativeAOT：插件通过 `AssemblyLoadContext` 动态加载 `Plugins\*\Files\Main.dll`，而 NativeAOT 不支持运行时加载程序集，开了插件体系就废了。客户端是 WinUI3 + WebView2，同样未启用 AOT。
+
+客户端把 WebView2 用户数据放在 `%LOCALAPPDATA%\Xdows Software\Xdows Security\WebView2`，不会在程序目录生成缓存。
+
 ## 与原始实现的差异
 
 移植过程中对少数无法直接等价的地方做了调整，逐条说明见 [docs/port-map.md](docs/port-map.md)。
