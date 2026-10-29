@@ -63,12 +63,15 @@ powershell -ExecutionPolicy Bypass -File Build/publish.ps1
 产物输出到 `publish\`：宿主与资源在根目录，WinUI3 客户端在 `publish\Client\`。
 直接运行 `publish\Xdows.Security.Host.exe serve --client` 即可同时启动服务与客户端。
 
-发布体积约 200 MB，做了两处收敛：
+发布体积约 61 MB，做了三处收敛：
 
 - 宿主启用 IL 裁剪（`PublishTrimmed`，79 MB → 23 MB）；
-- 客户端按需引用 Windows App SDK 组件，不引用元包，从而去掉未使用的 AI/ML 部分（`onnxruntime` + `DirectML` 约 40 MB）。
+- 客户端改**框架依赖**（不随包分发 .NET 与 Windows App SDK 运行时，232 MB → 39 MB）；
+- 客户端按需引用 Windows App SDK 组件，不引用元包，去掉未使用的 AI/ML 部分（`onnxruntime` + `DirectML` 约 40 MB）。
 
-宿主**没有**启用 NativeAOT：插件通过 `AssemblyLoadContext` 动态加载 `Plugins\*\Files\Main.dll`，而 NativeAOT 不支持运行时加载程序集，开了插件体系就废了。客户端是 WinUI3 + WebView2，同样未启用 AOT。
+因为客户端是框架依赖的，目标机需要先装好 **.NET 10 运行时**与 **Windows App Runtime 2.x**（宿主仍是自包含 + 裁剪，不需要额外安装）。
+
+**客户端没有启用 NativeAOT**：`.NET` 框架依赖与 AOT 本身互斥（AOT 产物自带运行时），而且当前 SDK（11.0.100-rc.3）下 `dotnet publish` + `PublishAot` 会让 XamlCompiler 拿到空引用列表并报 `WMC1007`（`dotnet build` 通过，只有 publish 失败）。宿主也不能 AOT：插件通过 `AssemblyLoadContext` 加载 `Plugins\*\Files\Main.dll`，NativeAOT 不支持运行时加载程序集。
 
 客户端把 WebView2 用户数据放在 `%LOCALAPPDATA%\Xdows Software\Xdows Security\WebView2`，不会在程序目录生成缓存。
 

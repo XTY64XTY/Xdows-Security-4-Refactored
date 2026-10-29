@@ -60,3 +60,11 @@
 - 扫描为同步处理，前端使用同步 `XMLHttpRequest`，扫描期间页面本身不响应（进度窗口由客户端进程绘制，不受影响）。
 - 原客户端的「禁用拖拽文件」未能保留：WinUI3 的 `Microsoft.UI.Xaml.Controls.WebView2` 不暴露 `CoreWebView2Controller`，`AllowExternalDrop` 只能通过控制器设置。
 - 插件程序集同名（都是 `Main.dll`），加载时按插件目录各自建立 `AssemblyLoadContext`；插件之间不能互相引用。
+- **客户端未启用 NativeAOT**，两重原因：
+  1. 客户端是框架依赖发布（不携带 .NET 运行时），而 NativeAOT 与框架依赖互斥 —— AOT 产物自带运行时；
+  2. 在本机 SDK（11.0.100-rc.3）+ Windows App SDK 2.5.1 上，`dotnet build -p:PublishAot=true` 能通过，
+     但 `dotnet publish -p:PublishAot=true` 会在 XamlCompiler 阶段报 `WMC1007: Cannot resolve metadata for WinUI types`。
+     抓到的中间文件 `obj/.../input.json` 里 `ReferenceAssemblies` 为 0（正常编译时是 203 条），
+     即 publish 的那一遍 XAML 编译拿到的是空引用列表，与代码无关。
+- **宿主也未启用 NativeAOT**：插件靠 `AssemblyLoadContext.LoadFromAssemblyPath` 动态加载 `Plugins\*\Files\Main.dll`，
+  NativeAOT 不支持运行时加载程序集，开了插件体系就废了。
