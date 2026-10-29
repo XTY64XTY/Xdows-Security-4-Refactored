@@ -25,14 +25,23 @@
   </ItemGroup>
 
   <!-- 插件以独立程序集编译，再按 Plugins\<名称>\Files\Main.dll 的契约复制 -->
-  <Target Name="CopyPlugins" AfterTargets="Build">
-    <MSBuild Projects="..\Xdows.Security.Plugins.Files\Xdows.Security.Plugins.Files.csproj" Targets="Build" Properties="Configuration=$(Configuration)">
+  <Target Name="BuildPlugins">
+    <MSBuild Projects="..\Xdows.Security.Plugins.Files\Xdows.Security.Plugins.Files.csproj" Targets="Build" Properties="Configuration=$(Configuration)" RemoveProperties="RuntimeIdentifier;SelfContained;PublishDir;PublishReadyToRun;PublishSingleFile">
       <Output TaskParameter="TargetOutputs" ItemName="FilesPluginOutput" />
     </MSBuild>
-    <MSBuild Projects="..\Xdows.Security.Plugins.Process\Xdows.Security.Plugins.Process.csproj" Targets="Build" Properties="Configuration=$(Configuration)">
+    <MSBuild Projects="..\Xdows.Security.Plugins.Process\Xdows.Security.Plugins.Process.csproj" Targets="Build" Properties="Configuration=$(Configuration)" RemoveProperties="RuntimeIdentifier;SelfContained;PublishDir;PublishReadyToRun;PublishSingleFile">
       <Output TaskParameter="TargetOutputs" ItemName="ProcessPluginOutput" />
     </MSBuild>
+  </Target>
+
+  <Target Name="CopyPluginsToOutput" AfterTargets="Build" DependsOnTargets="BuildPlugins">
     <Copy SourceFiles="@(FilesPluginOutput)" DestinationFolder="$(OutDir)Plugins\Files\Files" SkipUnchangedFiles="true" />
     <Copy SourceFiles="@(ProcessPluginOutput)" DestinationFolder="$(OutDir)Plugins\Process\Files" SkipUnchangedFiles="true" />
+  </Target>
+
+  <!-- dotnet publish 只搬运已知输出，插件程序集需要单独复制到发布目录 -->
+  <Target Name="CopyPluginsToPublish" AfterTargets="Publish" DependsOnTargets="BuildPlugins">
+    <Copy SourceFiles="@(FilesPluginOutput)" DestinationFolder="$(PublishDir)Plugins\Files\Files" SkipUnchangedFiles="true" />
+    <Copy SourceFiles="@(ProcessPluginOutput)" DestinationFolder="$(PublishDir)Plugins\Process\Files" SkipUnchangedFiles="true" />
   </Target>
 </Project>

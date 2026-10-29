@@ -54,7 +54,9 @@
 7. **文件/文件夹对话框与 TaskDialog** 由控制台宿主在独立 STA 线程上调用系统接口（`IFileOpenDialog`、`comctl32!TaskDialog`），属主窗口取控制台窗口。
 8. **未实现的功能**保持未实现：快速扫描、全盘扫描、隔离信任、检查更新、云端与自定义引擎开关。
 
-## 已知限制（沿用原始行为）
+## 已知限制
 
 - 服务只监听 `127.0.0.1`，但请求路径未做规范化校验，与原始实现一致；如需限制访问请自行加校验。
 - 扫描为同步处理，前端使用同步 `XMLHttpRequest`，扫描期间页面本身不响应（进度窗口由客户端进程绘制，不受影响）。
+- 原客户端的「禁用拖拽文件」未能保留：WinUI3 的 `Microsoft.UI.Xaml.Controls.WebView2` 不暴露 `CoreWebView2Controller`，`AllowExternalDrop` 只能通过控制器设置。
+- 插件程序集同名（都是 `Main.dll`），加载时按插件目录各自建立 `AssemblyLoadContext`；插件之间不能互相引用。
