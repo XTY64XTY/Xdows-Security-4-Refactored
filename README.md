@@ -1,8 +1,10 @@
 # Xdows Security 4（C# / WinUI3 重构版）
 
-本仓库是易语言项目 [Xdows-Security-4](https://github.com/XTY64XTY/Xdows-Security-4) 的 C# 重构版。原项目由三部分组成：
+本仓库是易语言项目 [XTY64XTY12345/Xdows-Security-4](https://github.com/XTY64XTY12345/Xdows-Security-4) 的 C# 重构版。原项目由三部分组成：
 主程序内置 Web 服务并通过网页提供界面、CEF（ACF）客户端承载网页、独立的 `Scan.dll` 启发式扫描引擎。
 重构后用 **C# 控制台宿主** 承担服务与引擎职责，用 **WinUI3 + WebView2 客户端** 承担界面外壳。
+
+> 本项目的代码移植与文档由 **DeepSeek V4.1 Flash** 编写。
 
 ## 组成
 
